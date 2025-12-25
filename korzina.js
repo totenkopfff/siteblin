@@ -70,9 +70,10 @@ function renderCart() {
 
 
 document.querySelector('.logo').addEventListener('click', () => {
-  window.location.href = 'catalog.html';
+  window.location.href = 'index.html';
 });
 
 
 // Рендерим корзину при загрузке страницы
 renderCart();
+

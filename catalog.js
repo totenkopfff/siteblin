@@ -186,8 +186,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 document.querySelector('.logo').addEventListener('click', () => {
-  window.location.href = 'catalog.html';
+  window.location.href = 'index.html';
 });
 
 
 });
+

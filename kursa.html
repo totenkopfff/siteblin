@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | SportStore</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+      background: url('https://images.unsplash.com/photo-1599058917212-d750089bc07b?auto=format&fit=crop&w=1920&q=80')
+        no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(5px);
+    }
+
+    .login-container {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      width: 400px;
+      padding: 40px 30px;
+      text-align: center;
+    }
+
+    .login-container h1 {
+      color: #005bbb;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .login-container p {
+      color: #555;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    .login-container input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    .login-container input:focus {
+      border-color: #005bbb;
+      box-shadow: 0 0 5px rgba(0, 91, 187, 0.3);
+    }
+
+    .login-container button {
+      width: 100%;
+      background-color: #005bbb;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+
+    .login-container button:hover {
+      background-color: #004599;
+    }
+
+    .login-container a {
+      display: block;
+      margin-top: 15px;
+      color: #005bbb;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .login-container a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .login-container {
+        width: 90%;
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h1>SportStore</h1>
+    <p>Войдите в свой аккаунт</p>
+    <form>
+      <input type="email" placeholder="Электронная почта" required />
+      <input type="password" placeholder="Пароль" required />
+      <button type="submit">Войти</button>
+      <a href="#">Создать аккаунт</a>
+      <a href="#">Забыли пароль?</a>
+    </form>
+  </div>
+</body>
+</html>

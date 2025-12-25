@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Личный кабинет | SportStore</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --accent: #005bbb;
+      --accent-dark: #004599;
+      --muted: #6b7280;
+      --card-bg: rgba(255,255,255,0.92);
+      --radius: 12px;
+      --max-width: 1100px;
+    }
+
+    *{box-sizing: border-box}
+    body{
+      margin:0;
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      min-height:100vh;
+      background: url('https://images.unsplash.com/photo-1599058917212-d750089bc07b?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      padding:40px 20px;
+      color:#111827;
+    }
+
+    .dashboard {
+      width:100%;
+      max-width:var(--max-width);
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.92));
+      border-radius:18px;
+      box-shadow: 0 10px 40px rgba(2,6,23,0.25);
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap: 24px;
+      padding: 28px;
+      backdrop-filter: blur(6px);
+    }
+
+    .sidebar {
+      padding:18px;
+      border-radius:12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.6));
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:18px;
+    }
+
+    .logo {
+      width:46px;
+      height:46px;
+      border-radius:10px;
+      background:var(--accent);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-weight:700;
+      font-size:18px;
+      box-shadow: 0 4px 14px rgba(0,91,187,0.15);
+    }
+
+    .brand h2{
+      margin:0;
+      font-size:18px;
+      color:var(--accent);
+    }
+
+    .user-card {
+      display:flex;
+      gap:12px;
+      align-items:center;
+      padding:12px;
+      border-radius:10px;
+      background: rgba(0,0,0,0.03);
+      margin-bottom:18px;
+    }
+
+    .avatar{
+      width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-dark));
+      display:flex;align-items:center;justify-content:center;color:white;font-weight:600;
+    }
+
+    .user-info small{ color:var(--muted); display:block}
+    .user-info strong{display:block; margin-bottom:4px}
+
+    .nav {
+      display:flex;flex-direction:column;
+      gap:8px;margin-bottom:14px;
+    }
+    .nav button{
+      text-align:left;
+      border:0;
+      background:transparent;
+      padding:10px 12px;
+      border-radius:8px;
+      cursor:pointer;
+      font-size:14px;
+      color:#0f172a;
+      transition: background .15s, transform .06s;
+    }
+    .nav button:hover{ background: rgba(0,91,187,0.06); transform: translateY(-1px) }
+    .nav button.active{ background: rgba(0,91,187,0.12); color:var(--accent-dark); font-weight:600 }
+
+    .sidebar-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .sidebar-buttons a {
+      display:block;
+      padding:10px 12px;
+      border-radius:8px;
+      text-decoration:none;
+      text-align:center;
+      font-weight:600;
+      transition: all 0.2s ease;
+    }
+
+    .to-store {
+      background:white;
+      color:var(--accent);
+      border:2px solid var(--accent);
+    }
+    .to-store:hover {
+      background:var(--accent);
+      color:white;
+    }
+
+    .signout {
+      background:var(--accent);
+      color:white;
+    }
+    .signout:hover {
+      background:var(--accent-dark);
+    }
+
+    .content {
+      padding:18px;
+    }
+
+    .header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:18px;
+    }
+    .header h3{margin:0;color:var(--accent);font-size:20px}
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding:16px;
+      box-shadow: 0 6px 20px rgba(2,6,23,0.06);
+      margin-bottom:16px;
+    }
+
+    .orders-list table{ width:100%; border-collapse:collapse; font-size:14px }
+    .orders-list th, .orders-list td { text-align:left; padding:10px 8px; border-bottom:1px solid rgba(15,23,42,0.06) }
+    .orders-list th{ color:var(--muted); font-weight:600; font-size:13px }
+
+    .order-status { padding:6px 10px; border-radius:999px; font-size:13px; color:white; display:inline-block }
+    .status-processing{ background:#f59e0b }
+    .status-completed{ background:#10b981 }
+    .status-cancel{ background:#ef4444 }
+
+    @media (max-width: 980px){
+      .dashboard{ grid-template-columns: 1fr; padding:18px }
+      body{ align-items:flex-start; padding:20px 12px }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">SS</div>
+        <h2>SportStore</h2>
+      </div>
+
+      <div class="user-card">
+        <div class="avatar">ИП</div>
+        <div class="user-info">
+          <strong>Иван Петров</strong>
+          <small>Пользователь с 2024 года</small>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <button class="active" data-tab="profile">Профиль</button>
+        <button data-tab="orders">Мои заказы</button>
+        <button data-tab="favorites">Избранное</button>
+        <button data-tab="settings">Настройки</button>
+      </nav>
+
+      <div class="sidebar-buttons">
+        <a href="catalog.html" class="to-store">В магазин</a>
+        <a href="#" class="signout" id="signoutBtn">Выйти</a>
+      </div>
+    </aside>
+
+    <section class="content">
+      <div class="header">
+        <h3>Личный кабинет</h3>
+      </div>
+
+      <div class="card tab" id="profile">
+        <h4>Личная информация</h4>
+        <p style="color:var(--muted)">Здесь отображаются ваши контактные данные и адрес доставки.</p>
+        <div style="margin-top:12px;">
+          <strong>Email:</strong> ivan.petrov@example.com<br/>
+          <strong>Телефон:</strong> +7 (999) 555-12-34<br/>
+          <strong>Адрес:</strong> г. Москва, ул. Ленина, д. 10
+        </div>
+      </div>
+
+      <div class="card tab" id="orders" style="display:none">
+        <h4>История заказов</h4>
+        <div class="orders-list" style="margin-top:10px">
+          <table>
+            <thead>
+              <tr><th>№ заказа</th><th>Дата</th><th>Товары</th><th>Сумма</th><th>Статус</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#2024-045</td>
+                <td>10.11.2024</td>
+                <td>Кроссовки Adidas</td>
+                <td>9 990 ₽</td>
+                <td><span class="order-status status-completed">Завершён</span></td>
+              </tr>
+              <tr>
+                <td>#2024-037</td>
+                <td>02.11.2024</td>
+                <td>Футболка Nike</td>
+                <td>2 490 ₽</td>
+                <td><span class="order-status status-processing">В обработке</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card tab" id="favorites" style="display:none">
+        <h4>Корзина и избранное</h4>
+        <p style="color:var(--muted)">Здесь вы можете управлять сохранёнными товарами и оформить заказ.</p>
+      </div>
+
+      <div class="card tab" id="settings" style="display:none">
+        <h4>Настройки аккаунта</h4>
+        <p style="color:var(--muted)">Вы можете изменить пароль, адрес доставки и подписки на рассылку.</p>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('.nav button');
+    const tabs = document.querySelectorAll('.tab');
+
+    function activateTab(name){
+      tabs.forEach(t => t.style.display = t.id === name ? '' : 'none');
+      buttons.forEach(b => b.classList.toggle('active', b.dataset.tab === name));
+    }
+
+    buttons.forEach(btn => btn.addEventListener('click', () => activateTab(btn.dataset.tab)));
+    activateTab('profile');
+
+    document.getElementById('signoutBtn').addEventListener('click', (e)=>{
+      e.preventDefault();
+      alert('Вы вышли из аккаунта (демо).');
+    });
+  </script>
+
+<script src="cab.js"></script>
+
+  </nav>
+</header>
+
+</body>
+</html>

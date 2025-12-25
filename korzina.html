@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Корзина | SportStore</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --accent: #005bbb;
+      --accent-dark: #004599;
+      --muted: #6b7280;
+      --bg: rgba(255, 255, 255, 0.94);
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: url('https://images.unsplash.com/photo-1599058917212-d750089bc07b?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+      color: #111827;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--bg);
+      padding: 16px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 22px;
+    }
+
+    .user-actions a {
+      text-decoration: none;
+      color: var(--accent);
+      font-weight: 600;
+      margin-left: 20px;
+    }
+
+    main {
+      flex: 1;
+      padding: 40px 60px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .cart-items {
+      background: var(--bg);
+      border-radius: var(--radius);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      padding: 24px;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 100px 1fr auto;
+      gap: 16px;
+      align-items: center;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      padding: 16px 0;
+    }
+
+    .cart-item img {
+      width: 100px;
+      height: 100px;
+      border-radius: var(--radius);
+      object-fit: cover;
+    }
+
+    .item-info h3 {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .item-info p {
+      margin: 6px 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .item-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+
+    .item-actions input {
+      width: 60px;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: var(--radius);
+      padding: 6px;
+    }
+
+    .item-actions button {
+      background: transparent;
+      border: none;
+      color: #ef4444;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .summary {
+      background: var(--bg);
+      border-radius: var(--radius);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      padding: 24px;
+      position: sticky;
+      top: 20px;
+    }
+
+    .summary h2 {
+      margin-top: 0;
+      color: var(--accent-dark);
+      font-size: 20px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 12px 0;
+      font-size: 15px;
+    }
+
+    .summary-total {
+      font-size: 18px;
+      font-weight: 700;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      padding-top: 12px;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      padding: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 16px;
+      transition: 0.3s;
+    }
+
+    .checkout-btn:hover {
+      background: var(--accent-dark);
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 24px;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      background: var(--bg);
+      text-align: center;
+      padding: 16px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">SportStore</div>
+    <div class="user-actions">
+      <a href="catalog.html">Каталог</a>
+      <a href="cab.html">Личный кабинет</a>
+      <a href="korzina.html">Корзина</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="cart-items">
+      <h2>Моя корзина</h2>
+
+      <a href="catalog.html" class="back-link">← Вернуться в каталог</a>
+    </section>
+
+      <aside class="summary">
+  <h2>Итог заказа</h2>
+
+  <div class="summary-row">
+    <span>Товаров:</span>
+    <span id="summary-items">0 шт.</span>
+  </div>
+
+  <div class="summary-row">
+    <span>Сумма заказа:</span>
+    <span id="summary-price">0 ₽</span>
+  </div>
+
+  <div class="summary-row">
+    <span>Доставка:</span>
+    <span>Бесплатно</span>
+  </div>
+
+  <div class="summary-row summary-total">
+    <span>Итого к оплате:</span>
+    <span id="summary-total">0 ₽</span>
+  </div>
+
+      <button class="checkout-btn">Оформить заказ</button>
+    </aside>  
+  </main>
+
+<script src="korzina.js"></script>
+
+
+
+  <footer>
+    © 2025 SportStore. Все права защищены.
+  </footer>
+</body>
+</html>

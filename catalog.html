@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <link rel="icon" href="icon.png" type="image/png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Каталог товаров | SportStore</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --accent: #005bbb;
+      --accent-dark: #004599;
+      --muted: #6b7280;
+      --bg: rgba(255, 255, 255, 0.92);
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+
+    
+
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: url('https://images.unsplash.com/photo-1599058917212-d750089bc07b?auto=format&fit=crop&w=1920&q=80')
+        center/cover no-repeat;
+      backdrop-filter: blur(4px);
+      color: #111827;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--bg);
+      padding: 16px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 22px;
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 400px;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      border-radius: var(--radius);
+      font-size: 14px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    .search-bar input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 4px rgba(0, 91, 187, 0.3);
+    }
+
+    .search-bar button {
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      padding: 10px 16px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .search-bar button:hover {
+      background: var(--accent-dark);
+    }
+
+    .user-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .user-actions a {
+      text-decoration: none;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .categories {
+      background: var(--bg);
+      padding: 15px 40px;
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .category-btn {
+      padding: 8px 16px;
+      background: white;
+      border: 1px solid #d1d5db;
+      border-radius: 20px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.3s;
+    }
+
+    .category-btn:hover,
+    .category-btn.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    main {
+      flex: 1;
+      padding: 30px 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .product-card {
+      background: var(--bg);
+      border-radius: var(--radius);
+      box-shadow: 0 6px 18px rgba(2, 6, 23, 0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .product-info {
+      padding: 16px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .product-info h3 {
+      margin: 0;
+      font-size: 18px;
+      color: #111827;
+    }
+
+    .product-info p {
+      margin: 8px 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .price {
+      font-weight: 700;
+      color: var(--accent-dark);
+      font-size: 16px;
+    }
+
+    .product-info button {
+      margin-top: 10px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      padding: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .product-info button:hover {
+      background: var(--accent-dark);
+    }
+
+    footer {
+      background: var(--bg);
+      text-align: center;
+      padding: 16px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 768px) {
+      .search-bar {
+        width: 100%;
+      }
+      main {
+        padding: 20px;
+      }
+      .categories {
+        padding: 15px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">SportStore</div>
+    <div class="search-bar">
+      <input type="text" placeholder="Поиск по каталогу..." />
+      <button>Найти</button>
+    </div>
+    <div class="user-actions">
+      <a href="cab.html">Личный кабинет</a>
+      <a href="korzina.html">Корзина</a>
+    </div>
+  </header>
+
+  <div class="categories">
+    <button class="category-btn active">Все товары</button>
+    <button class="category-btn">Обувь</button>
+    <button class="category-btn">Одежда</button>
+    <button class="category-btn">Тренажеры</button>
+    <button class="category-btn">Фитнес</button>
+    <button class="category-btn">Игровые виды</button>
+    <button class="category-btn">Аксессуары</button>
+    <button class="category-btn">Спортивное питание</button>
+    <button class="category-btn">Распродажа</button>
+  </div>
+
+  <main>
+    <!-- Обувь -->
+    <div class="product-card">
+      <img src="https://ir.ozone.ru/s3/multimedia-1-r/c1000/7272218403.jpg" alt="Кроссовки Nike Air Max 270">
+      <div class="product-info">
+        <h3>Кроссовки Nike Air Max 270</h3>
+        <p>Беговые кроссовки с технологией Air Max для максимальной амортизации</p>
+        <div class="price">12 990 ₽</div>
+        <button>В корзину</button>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <img src="https://myreact.ru/storage/catalog/products/15734/clRped.jpg" alt="Кроссовки Adidas Ultraboost">
+      <div class="product-info">
+        <h3>Кроссовки Adidas Ultraboost</h3>
+        <p>Технология Boost для возврата энергии, идеально для бега на длинные дистанции</p>
+        <div class="price">14 490 ₽</div>
+        <button>В корзину</button>
+      </div>
+    </div>
+
+    <!-- Одежда -->
+    <div class="product-card">
+      <img src="https://img.brandshop.ru/cache/products/c/cu4489-010-0_552x552.jpg" alt="Толстовка Nike Tech Fleece">
+      <div class="product-info">
+        <h3>Толстовка Nike Tech Fleece</h3>
+        <p>Теплая и легкая толстовка для тренировок и повседневной носки</p>
+        <div class="price">6 990 ₽</div>
+        <button>В корзину</button>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <img src="https://myreact.ru/storage/catalog/products/11000/lHKpno.jpg" alt="Футболка Adidas Tiro">
+      <div class="product-info">
+        <h3>Футболка Adidas Tiro 24</h3>
+        <p>Футбольная тренировочная футболка с технологией AEROREADY</p>
+        <div class="price">3 490 ₽</div>
+        <button>В корзину</button>
+      </div>
+    </div>
+
+    <!-- Тренажеры -->
+    <div class="product-card">
+      <img src="https://cdn.sportmaster.ru/upload/mdm/media_content/resize/1a8/768_1024_17f7/58363760299.jpg" alt="Беговая дорожка">
+      <div class="product-info">
+        <h3>Беговая дорожка ProForm 505 CST</h3>
+        <p>Мощная беговая дорожка с системой амортизации и 12 программами тренировок</p>
+        <div class="price">89 990 ₽</div>
+        <button>В корзину</button>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <img src="https://sportpremier.ru/upload/iblock/e2e/942dpl9pr71tcz5kvmb0bz6f7jedreqh.jpg" alt="Велотренажер">
+      <div class="product-info">
+        <h3>Велотренажер Oxygen Fitness Jet</h3>
+        <p>Магнитная система нагрузки, 8 уровней сопротивления, дисплей с показателями</p>
+        <div class="price">34 990 ₽</div>
+        <button>В корзину</button>
+      </div>
+    </div>
+
+    <!-- Фитнес -->
+    <div class="product-card">
+      <img src="https://img.hop-sport.ua/catalog/p/trexsport/2137/09-500x0.webp?ts=1642705656" alt="Гантели наборные">
+      <div class="product-info">
+        <h3>Набор гантелей 2x20 кг</h3>
+        <p>Разборные гантели с неопреновым покрытием, удобные для домашних тренировок</p>
+        <div class="price">7 490 ₽</div>
+        <button>В корзину</button>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <img src="https://resource.prod.bradex.ru/original-image/products/SF-0187/SF-0187.jpg" alt="Фитбол">
+      <div class="product-info">
+        <h3>Фитбол 75 см с насосом</h3>
+        <p>Упругий гимнастический мяч для йоги, пилатеса и восстановительных упражнений</p>
+        <div class="price">2 190 ₽</div>
+        <button>В корзину</button>
+      </div>
+    </div>
+
+    <!-- Игровые виды -->
+    <div class="product-card">
+      <img src="https://sportslegion.ru/wp-content/uploads/2019/06/nba-gold-600x600.jpeg" alt="Баскетбольный мяч">
+      <div class="product-info">
+        <h3>Баскетбольный мяч Spalding NBA</h3>
+        <p>Официальный мяч NBA, композитная кожа, идеальный отскок</p>
+        <div class="price">4 990 ₽</div>
+        <button>В корзину</button>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <img src="https://sportshop21.ru/wp-content/uploads/2024/07/myach-futbolnyy-adidas-champions-league-sine-belyy.jpg" alt="Футбольный мяч">
+      <div class="product-info">
+        <h3>Футбольный мяч Adidas Champions League</h3>
+        <p>Официальный мяч Лиги Чемпионов, машинная строчка, водонепроницаемость</p>
+        <div class="price">5 490 ₽</div>
+        <button>В корзину</button>
+      </div>
+    </div>
+
+    <!-- Зимние виды -->
+    <div class="product-card">
+      <img src="https://www.traektoria.ru/upload/resized/2/10383051/10383051-1500x1500.jpg" alt="Сноуборд">
+      <div class="product-info">
+        <h3>Сноуборд Burton Custom</h3>
+        <p>Универсальный сноуборд для фристайла и карвинга, длина 158 см</p>
+        <div class="price">45 990 ₽</div>
+        <button>В корзину</button>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <img src="https://www.hc5.ru/wa-data/public/shop/products/86/50/105086/images/407348/407348.750.jpg" alt="Лыжи">
+      <div class="product-info">
+        <h3>Горные лыжи Atomic Redster</h3>
+        <p>Карвинговые лыжи для подготовленных склонов, ростовка 170 см</p>
+        <div class="price">32 490 ₽</div>
+        <button>В корзину</button>
+      </div>
+    </div>
+
+    <!-- Аксессуары -->
+    <div class="product-card">
+      <img src="https://mi-shop.com/upload/iblock/a6c/22yttxb8sd9g1ogt8twrvuded7rw6wae.jpg" alt="Фитнес-браслет">
+      <div class="product-info">
+        <h3>Фитнес-браслет Xiaomi Mi Band 8</h3>
+        <p>Мониторинг пульса, сна, SpO2, 150+ спортивных режимов</p>
+        <div class="price">4 290 ₽</div>
+        <button>В корзину</button>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <img src="https://m.media-amazon.com/images/I/61+BAn21hNL.jpg" alt="Спортивная бутылка">
+      <div class="product-info">
+        <h3>Бутылка для воды Nike 1L</h3>
+        <p>Тритан, без БФА, удобная крышка-клапан, нескользящее покрытие</p>
+        <div class="price">1 290 ₽</div>
+        <button>В корзину</button>
+      </div>
+    </div>
+
+    <!-- Спортивное питание -->
+    <div class="product-card">
+      <img src="https://deliherb.ru/files/products/27514_69.1024x768w.jpg" alt="Протеин">
+      <div class="product-info">
+        <h3>Сывороточный протеин Optimum Nutrition</h3>
+        <p>Gold Standard 100% Whey, 2.27 кг, шоколадный вкус</p>
+        <div class="price">5 990 ₽</div>
+        <button>В корзину</button>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <img src="https://vitaminof.ru/upload/iblock/c8d/7bg34j69tr9fs5vgh88fvpwwdm09hu1g/3UU2Ae4w6t.jpg" alt="BCAA">
+      <div class="product-info">
+        <h3>BCAA Maxler 1000 гр</h3>
+        <p>Соотношение 2:1:1, со вкусом апельсина, без сахара</p>
+        <div class="price">3 490 ₽</div>
+        <button>В корзину</button>
+      </div>
+    </div>
+
+    <!-- Дополнительно -->
+    <div class="product-card">
+      <img src="https://physiokit.com.ua/image/cache/catalog/kinesiotape/Bearkomplex/bearkomplex-jump-rope-blue-1024x1024.jpg" alt="Скакалка">
+      <div class="product-info">
+        <h3>Скоростная скакалка Bear Komplex</h3>
+        <p>Стальные подшипники, регулируемая длина, счетчик прыжков</p>
+        <div class="price">1 890 ₽</div>
+        <button>В корзину</button>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <img src="https://ir.ozone.ru/s3/multimedia-f/c1000/6261185631.jpg" alt="Эспандер">
+      <div class="product-info">
+        <h3>Набор эспандеров 5 уровней</h3>
+        <p>Резиновые ленты разной жесткости, ручки и крепления в комплекте</p>
+        <div class="price">2 990 ₽</div>
+        <button>В корзину</button>
+      </div>
+    </div>
+  </main>
+
+<!-- Модальное окно -->
+<div id="modal" class="modal">
+  <h3 id="modal-title"></h3>
+  <p id="modal-content"></p>
+  <button id="modal-close">Закрыть</button>
+</div>
+
+<!-- Фон для модалки -->
+<div id="modal-backdrop" class="modal-backdrop"></div>
+
+
+  <footer>
+    <footer>
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; max-width: 1200px; margin: auto; padding: 20px 0;">
+    
+    <!-- Контакты -->
+    <div>
+      <h4 style="margin-bottom: 10px; color: var(--accent-dark);">Контакты</h4>
+      <p>Email: <a href="mailto:support@sportstore.ru" style="color: var(--accent); text-decoration: none;">support@sportstore.ru</a></p>
+      <p>Телефон: <a href="tel:+78001234567" style="color: var(--accent); text-decoration: none;">+7 (800) 123-45-67</a></p>
+      <p>Адрес: г. Москва, ул. Спортивная, 10</p>
+    </div>
+
+    <!-- Поддержка -->
+    <div>
+      <h4 style="margin-bottom: 10px; color: var(--accent-dark);">Поддержка</h4>
+      <p><a href="#" style="color: var(--accent); text-decoration: none;">FAQ</a></p>
+      <p><a href="#" style="color: var(--accent); text-decoration: none;">Возврат и обмен</a></p>
+      <p><a href="#" style="color: var(--accent); text-decoration: none;">Доставка</a></p>
+    </div>
+
+    <!-- Информация -->
+    <div>
+      <h4 style="margin-bottom: 10px; color: var(--accent-dark);">Информация</h4>
+      <p><a href="#" style="color: var(--accent); text-decoration: none;">О нас</a></p>
+      <p><a href="#" style="color: var(--accent); text-decoration: none;">Пользовательское соглашение</a></p>
+      <p><a href="#" style="color: var(--accent); text-decoration: none;">Политика конфиденциальности</a></p>
+    </div>
+  </div>
+
+  <div style="text-align: center; margin-top: 20px; font-size: 14px; color: var(--muted);">
+
+    <script src="catalog.js"></script>
+  
+    <script src="footer.js"></script>
+
+<head>
+  <link rel="stylesheet" href="catalog.css">
+</head>
+
+    © 2025 SportStore. Все права защищены.
+  </div>
+</footer>
